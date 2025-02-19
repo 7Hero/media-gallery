@@ -101,4 +101,7 @@
 
 @theme {
   --font-display: 'Inter', 'sans-serif';
+  --color-secondary-50: #9FA4AB;
+  --color-secondary-80: #5E6166;
+  --color-secondary-100: #232426;
 }

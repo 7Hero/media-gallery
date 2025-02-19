@@ -11,7 +11,7 @@ export type SidebarContentProps = {
 export const SidebarContent = ({ title, children }: SidebarContentProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm font-medium">{title}</p>
+      <p className="text-sm font-medium px-2">{title}</p>
       {children}
     </div>
   );
@@ -27,12 +27,17 @@ export const Sidebar = () => {
         Media gallery
       </div>
       <SidebarContent title="Folders">
-        {Object.keys(folders).map((folderName) => (
-          <Button variant="ghost" key="folderName">
-            <Folder />
-            {folderName}
-          </Button>
-        ))}
+        <div className='gap-1 flex flex-col'>
+          {Object.values(folders).map((folder) => (
+            <Button variant="ghost" key={folder.id} className='text-secondary-100'>
+              <Folder />
+              {folder.name}
+              <span className='text-secondary-50'>
+                {folder.fileIds.length}
+              </span>
+            </Button>
+          ))}
+        </div>
       </SidebarContent>
       <SidebarContent title="Filters">etc..</SidebarContent>
     </div>
