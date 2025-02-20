@@ -2,11 +2,13 @@ import { generateUniqueFilename } from '@/lib/utils';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export type MediaType = 'video' | 'image' | 'gif';
+
 export interface MediaFile {
   id: string;
   filename: string;
   fileUrl: string;
-  type: 'image' | 'video' | 'gif';
+  type: MediaType;
 }
 
 export interface Folder {

@@ -6,6 +6,8 @@ import { useSelection } from '@/hooks/useSelection';
 import { useDrop } from 'react-dnd';
 import { cn } from '@/lib/utils';
 import { Folder } from '@/stores/media';
+import { MediaTypeFilter } from './filters/mediatype';
+import { SearchFilter } from './filters/search';
 
 export type SidebarContentProps = {
   title: string;
@@ -75,7 +77,10 @@ export const Sidebar = () => {
           ))}
         </div>
       </SidebarContent>
-      <SidebarContent title="Filters">etc..</SidebarContent>
+      <SidebarContent title="Filters">
+        <MediaTypeFilter />
+        <SearchFilter />
+      </SidebarContent>
     </div>
   );
 };

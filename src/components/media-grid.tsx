@@ -3,11 +3,12 @@ import { useParams } from 'react-router';
 import { Selected } from './selected';
 import { Divider } from './divider';
 import { Media } from './media';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { SelectFolder } from './select-folder';
 import { useShallow } from 'zustand/react/shallow';
 import { useSelection } from '@/hooks/useSelection';
 import { Button } from './ui/button';
+import { filterDefinitions, useFiltersStore } from '@/stores/filters';
 
 export const MediaGrid = () => {
   const { folderId } = useParams<{ folderId: string }>();
@@ -20,6 +21,24 @@ export const MediaGrid = () => {
       deleteFiles: state.deleteFiles,
     })),
   );
+
+  const filters = useFiltersStore((state) => state.filters);
+
+  const filteredFiles = useMemo(() => {
+    let results = [...currentFolder.fileIds];
+
+    // Media filter
+    results = results.filter((item) =>
+      filterDefinitions.mediaTypes.filterFn(files[item], filters.mediaTypes),
+    );
+
+    // Search filter
+    results = results.filter((item) =>
+      filterDefinitions.search.filterFn(files[item], filters.search),
+    );
+
+    return results;
+  }, [currentFolder.fileIds, filters, files]);
 
   const handleFilesDelete = () => {
     deleteFiles(folderId!, Array.from(selectedIds));
@@ -57,7 +76,7 @@ export const MediaGrid = () => {
       <Divider className="mx-2" />
       {/* Media Grid */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-2">
-        {currentFolder.fileIds.map((fileId) => (
+        {filteredFiles.map((fileId) => (
           <Media key={fileId} file={files[fileId]} folderId={folderId!} />
         ))}
       </div>
