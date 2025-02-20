@@ -1,7 +1,7 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { mediaTypeFilter } from '@/lib/constants';
 import { useFiltersStore, filterDefinitions } from '@/stores/filters';
-import { SidebarFilter } from './accordion';
+import { SidebarFilter } from './filter';
 
 export const MediaTypeFilter = () => {
   const mediaTypes = useFiltersStore((state) => state.filters.mediaTypes);

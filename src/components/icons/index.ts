@@ -5,3 +5,4 @@ export { GifSmallIcon } from './gif-small';
 export { PictureIcon } from './picture';
 export { GifIcon } from './gif';
 export { FolderIcon } from './folder';
+export { EmptyFolderIcon } from './empty-folder';

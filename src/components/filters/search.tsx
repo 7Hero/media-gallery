@@ -1,6 +1,6 @@
 import { useFiltersStore } from '@/stores/filters';
 import { Input } from '../ui/input';
-import { SidebarFilter } from './accordion';
+import { SidebarFilter } from './filter';
 
 export const SearchFilter = () => {
   const search = useFiltersStore((state) => state.filters.search);
