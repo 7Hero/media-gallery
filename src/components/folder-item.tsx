@@ -30,7 +30,7 @@ export const FolderItem = ({ folder }: FolderItemProps) => {
     <Button
       ref={drop as unknown as React.Ref<HTMLButtonElement>}
       variant="ghost"
-      className={cn('transition-colors text-secondary-100', {
+      className={cn('transition-colors text-secondary-100 font-normal', {
         'bg-primary-100/10': isOver,
       })}
       asChild

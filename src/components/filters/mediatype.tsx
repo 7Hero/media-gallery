@@ -2,10 +2,35 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { mediaTypeFilter } from '@/lib/constants';
 import { useFiltersStore, filterDefinitions } from '@/stores/filters';
 import { SidebarFilter } from './filter';
+import { useMedia } from '@/hooks/useMedia';
+import { useParams } from 'react-router';
+import { useMemo } from 'react';
 
 export const MediaTypeFilter = () => {
+  const { folderId } = useParams();
+
   const mediaTypes = useFiltersStore((state) => state.filters.mediaTypes);
   const toggleMediaType = useFiltersStore((state) => state.toggleMediaType);
+  const { files, folders } = useMedia();
+
+  const currentFolder = folders[folderId!];
+
+  const typeCounts = useMemo(() => {
+    const counts = {
+      video: 0,
+      image: 0,
+      gif: 0,
+    };
+
+    currentFolder?.fileIds.forEach((fileId) => {
+      const file = files[fileId];
+      if (file) {
+        counts[file.type]++;
+      }
+    });
+
+    return counts;
+  }, [currentFolder?.fileIds, files]);
 
   return (
     <SidebarFilter
@@ -21,6 +46,7 @@ export const MediaTypeFilter = () => {
             >
               {mediaTypeFilter[value]}
               {label}
+              <span className="text-secondary-50">{typeCounts[value]}</span>
             </label>
             <Checkbox
               id={value}

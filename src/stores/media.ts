@@ -30,37 +30,37 @@ export const useMediaStore = create<MediaStore>()(
       files: {
         'file-1': {
           id: 'file-1',
-          filename: 'file-1.mp4',
+          filename: 'random-video.mp4',
           fileUrl: 'https://picsum.photos/600/900',
           type: 'video',
         },
         'file-2': {
           id: 'file-2',
-          filename: 'file-2.png',
+          filename: 'something.png',
           fileUrl: 'https://picsum.photos/900/600',
           type: 'image',
         },
         'file-3': {
           id: 'file-3',
-          filename: 'file-3.png',
+          filename: 'image-of-idk.png',
           fileUrl: 'https://picsum.photos/600',
           type: 'image',
         },
         'file-4': {
           id: 'file-4',
-          filename: 'file-4.png',
+          filename: 'text.png',
           fileUrl: 'https://picsum.photos/600/100',
           type: 'image',
         },
         'file-5': {
           id: 'file-5',
-          filename: 'file-5.gif',
+          filename: 'Amsterdam.gif',
           fileUrl: 'https://picsum.photos/1920/1080',
           type: 'gif',
         },
         'file-6': {
           id: 'file-6',
-          filename: 'file-6.png',
+          filename: 'chisinau$12.png',
           fileUrl: 'https://picsum.photos/400/800',
           type: 'image',
         },

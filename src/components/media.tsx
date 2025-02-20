@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils';
-import { MediaFile } from '@/stores/media';
 import { mediaType } from '@/lib/constants';
 import { useSelection } from '@/hooks/useSelection';
 import { useMedia } from '@/hooks/useMedia';
 import { useState } from 'react';
 import { useDrag } from 'react-dnd';
+import { MediaFile } from '@/types';
 
 export type MediaFileProps = {
   file: MediaFile;
@@ -27,15 +27,15 @@ export const Media = ({ file, folderId }: MediaFileProps) => {
 
   return (
     <div
-      className="flex flex-col group"
+      className="flex flex-col"
       ref={drag as unknown as React.Ref<HTMLDivElement>}
       style={{ opacity }}
     >
       <div
         className={cn(
-          'aspect-square flex items-center justify-center p-2 overflow-hidden relative group-hover:bg-black/20 rounded-[0.5rem]',
+          'group aspect-square flex items-center justify-center p-2 overflow-hidden relative hover:bg-black/20 rounded-[0.5rem]',
           {
-            'group-hover:bg-primary-100/10 bg-primary-100/10 outline-1 outline-primary-100 -outline-offset-1':
+            'hover:bg-primary-100/10 bg-primary-100/10 outline-1 outline-primary-100 -outline-offset-1':
               selected,
           },
         )}
@@ -77,7 +77,7 @@ export const Media = ({ file, folderId }: MediaFileProps) => {
       ) : (
         <p
           className={cn(
-            'p-[6px] text-secondary-80 text-xs text-center overflow-hidden overflow-ellipsis whitespace-nowrap',
+            'p-[6px] text-secondary-80 text-xs text-center overflow-hidden overflow-ellipsis whitespace-nowrap hover:bg-black/5 rounded-xs',
             {
               'text-primary-100': selected,
             },

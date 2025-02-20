@@ -26,7 +26,7 @@ export const Toolbar = () => {
       <div className="flex-1" />
       {selectedIds.size > 0 && (
         <Button variant="destructive" onClick={handleFilesDelete}>
-          Delete files
+          Delete file{selectedIds.size > 1 ? 's' : ''}
         </Button>
       )}
     </div>
