@@ -2,16 +2,18 @@ import { cn } from '@/lib/utils';
 import { MediaFile } from '@/stores/media';
 import { mediaType } from '@/lib/constants';
 import { useSelection } from '@/hooks/useSelection';
-import { useMemo } from 'react';
+import { useMedia } from '@/hooks/useMedia';
+import { useState } from 'react';
 
 export type MediaFileProps = {
   file: MediaFile;
 };
 
 export const Media = ({ file }: MediaFileProps) => {
+  const [isEditing, setIsEditing] = useState(false);
   const { toggleSelection, isSelected, getSelectionIndex } = useSelection();
-
-  const selected = useMemo(() => isSelected(file.id), [file.id, isSelected]);
+  const { renameFile } = useMedia();
+  const selected = isSelected(file.id);
 
   return (
     <div className="flex flex-col group">
@@ -42,9 +44,35 @@ export const Media = ({ file }: MediaFileProps) => {
           className="object-contain max-w-full max-h-full border-neutral-60 border-[2px] rounded-sm"
         />
       </div>
-      <p className="p-[6px] text-secondary-80 text-xs text-center">
-        {file.filename}
-      </p>
+      {isEditing ? (
+        <input
+          className="p-[6px] text-secondary-80 text-xs text-center w-full focus:outline-none caret-primary-100"
+          defaultValue={file.filename}
+          autoFocus
+          onBlur={() => setIsEditing(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              renameFile(file.id, e.currentTarget.value);
+              setIsEditing(false);
+            }
+            if (e.key === 'Escape') {
+              setIsEditing(false);
+            }
+          }}
+        />
+      ) : (
+        <p
+          className={cn(
+            'p-[6px] text-secondary-80 text-xs text-center overflow-hidden overflow-ellipsis whitespace-nowrap',
+            {
+              'text-primary-100': selected,
+            },
+          )}
+          onClick={() => setIsEditing(true)}
+        >
+          {file.filename}
+        </p>
+      )}
     </div>
   );
 };

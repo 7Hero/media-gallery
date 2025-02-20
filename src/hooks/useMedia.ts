@@ -8,7 +8,8 @@ export const useMedia = () => {
       files: state.files,
       addFiles: state.addFile,
       moveFiles: state.moveFiles,
-      deleteFiles: state.deleteFile,
+      deleteFiles: state.deleteFiles,
+      renameFile: state.renameFile,
     }))
   );
 };

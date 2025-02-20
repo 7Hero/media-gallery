@@ -2,6 +2,7 @@ import { Button } from './ui/button';
 import { NavLink } from 'react-router';
 import { FolderIcon, LogoIcon } from './icons';
 import { useMedia } from '@/hooks/useMedia';
+import { useSelection } from '@/hooks/useSelection';
 
 export type SidebarContentProps = {
   title: string;
@@ -19,6 +20,7 @@ export const SidebarContent = ({ title, children }: SidebarContentProps) => {
 
 export const Sidebar = () => {
   const { folders } = useMedia();
+  const { clearSelection } = useSelection();
 
   return (
     <div className="w-[232px] py-4 pl-4 pr-2 flex flex-col gap-8">
@@ -33,6 +35,7 @@ export const Sidebar = () => {
               variant="ghost"
               key={folder.id}
               className="text-secondary-100"
+              onClick={clearSelection}
               asChild
             >
               <NavLink to={`folder/${folder.id}`}>

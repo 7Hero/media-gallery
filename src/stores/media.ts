@@ -1,3 +1,4 @@
+import { generateUniqueFilename } from '@/lib/utils';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -18,8 +19,8 @@ interface MediaStore {
   folders: { [key: string]: Folder };
   files: { [key: string]: MediaFile };
   addFile: (folderId: string, file: MediaFile) => void;
-  deleteFile: (folderId: string, fileId: string) => void;
-  // renameFile: (fileId: string, newFilename: string) => void;
+  deleteFiles: (folderId: string, fileIds: string[]) => void;
+  renameFile: (fileId: string, newFilename: string) => void;
   moveFiles: (fileIds: string[], folderId: string, targetFolderId: string) => void;
 }
 
@@ -92,24 +93,20 @@ export const useMediaStore = create<MediaStore>()(
           },
         }));
       },
-      deleteFile: (folderId, fileId) => {
-        const currentFolder = get().folders[folderId];
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { [fileId]: _, ...remainingFiles } = get().files;
+      renameFile: (fileId, newFilename) => set((state) => {
+        const files = get().files;
+        const uniqueFilename = generateUniqueFilename(files, newFilename);
 
-        set((state) => ({
+        return {
           files: {
-            ...remainingFiles,
-          },
-          folders: {
-            ...state.folders,
-            [folderId]: {
-              ...currentFolder,
-              fileIds: [...currentFolder.fileIds.filter((id) => id !== fileId)],
+            ...state.files,
+            [fileId]: {
+              ...state.files[fileId],
+              filename: uniqueFilename,
             },
           },
-        }));
-      },
+        }
+      }),
       moveFiles: (fileIds, folderId, targetFolderId) => set((state) => {
         const currentFolder = state.folders[folderId];
         const targetFolder = state.folders[targetFolderId];
@@ -128,6 +125,26 @@ export const useMediaStore = create<MediaStore>()(
           }
         }
       }),
+      deleteFiles: (folderId, fileIds) => {
+        const currentFolder = get().folders[folderId];
+
+        const remainingFiles = Object.fromEntries(
+          Object.entries(get().files).filter(([id]) => !fileIds.includes(id))
+        );
+
+        set((state) => ({
+          files: {
+            ...remainingFiles,
+          },
+          folders: {
+            ...state.folders,
+            [folderId]: {
+              ...currentFolder,
+              fileIds: [...currentFolder.fileIds.filter((id) => !fileIds.includes(id))],
+            },
+          },
+        }));
+      },
     }),
     { name: 'media-storage' },
   ),

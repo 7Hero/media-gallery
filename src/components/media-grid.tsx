@@ -7,17 +7,24 @@ import { useEffect } from 'react';
 import { SelectFolder } from './select-folder';
 import { useShallow } from 'zustand/react/shallow';
 import { useSelection } from '@/hooks/useSelection';
+import { Button } from './ui/button';
 
 export const MediaGrid = () => {
   const { folderId } = useParams<{ folderId: string }>();
   const { clearSelection, selectedIds } = useSelection();
 
-  const { currentFolder, files } = useMediaStore(
+  const { currentFolder, files, deleteFiles } = useMediaStore(
     useShallow((state) => ({
       currentFolder: state.folders[folderId!],
       files: state.files,
+      deleteFiles: state.deleteFiles,
     })),
   );
+
+  const handleFilesDelete = () => {
+    deleteFiles(folderId!, Array.from(selectedIds));
+    clearSelection();
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -40,6 +47,12 @@ export const MediaGrid = () => {
           <p className="text-secondary-60">{selectedIds.size} selected</p>
         </div>
         {selectedIds.size > 0 && <SelectFolder />}
+        <div className="flex-1" />
+        {selectedIds.size > 0 && (
+          <Button variant="destructive" onClick={handleFilesDelete}>
+            Delete files
+          </Button>
+        )}
       </div>
       <Divider className="mx-2" />
       {/* Media Grid */}

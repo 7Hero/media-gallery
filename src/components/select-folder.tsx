@@ -16,11 +16,12 @@ export function SelectFolder() {
   const navigate = useNavigate();
 
   const { moveFiles, folders } = useMedia();
-  const { selectedIds, clearSelection } = useSelection();
+  const { selectedIds } = useSelection();
 
   const handleFolderChange = (targetFolderId: string) => {
+    if (targetFolderId === folderId) return;
+
     moveFiles(Array.from(selectedIds), folderId!, targetFolderId);
-    clearSelection();
     navigate(`/folder/${targetFolderId}`);
   };
 
