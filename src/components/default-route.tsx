@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router';
-import { useMediaStore } from '../stores/media';
+import { useMedia } from '@/hooks/useMedia';
 
 export const DefaultRoute = () => {
-  const folders = useMediaStore((state) => state.folders);
+  const { folders } = useMedia();
   const firstFolder = Object.values(folders)[0];
   const firstFolderId = firstFolder?.id || 'your-folder';
 

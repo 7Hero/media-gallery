@@ -1,24 +1,14 @@
 import { cn } from '@/lib/utils';
 import { MediaFile } from '@/stores/media';
-import { GifIcon, PlayIcon } from './icons';
-import { useSelectionStore } from '@/stores/selection';
+import { useSelection } from '@/hooks/useSelection';
+import { mediaType } from '@/lib/constants';
 
 export type MediaFileProps = {
   file: MediaFile;
 };
 
-export const mediaType = {
-  image: undefined,
-  video: <PlayIcon />,
-  gif: <GifIcon />,
-};
-
 export const Media = ({ file }: MediaFileProps) => {
-  const toggleSelection = useSelectionStore((state) => state.toggleSelection);
-  const isSelected = useSelectionStore((state) => state.isSelected(file.id));
-  const getSelectionIndex = useSelectionStore(
-    (state) => state.getSelectionIndex,
-  );
+  const { toggleSelection, isSelected, getSelectionIndex } = useSelection();
 
   return (
     <div className="flex flex-col group">
@@ -36,7 +26,7 @@ export const Media = ({ file }: MediaFileProps) => {
         </div>
         <button
           className={cn(
-            'h-5 w-5 absolute bottom-1 left-1 group-hover:flex hidden z-10 rounded-sm -outline-offset-[1.5px] outline-white outline-[1.5px] hover:outline-white/20 text-[10px] text-white justify-center items-center',
+            'cursor-pointer h-5 w-5 absolute bottom-1 left-1 group-hover:flex hidden z-10 rounded-sm -outline-offset-[1.5px] outline-white outline-[1.5px] hover:outline-white/20 text-[10px] text-white justify-center items-center',
             { 'block bg-primary-100 outline-primary-100': isSelected },
           )}
           onClick={() => toggleSelection(file.id)}

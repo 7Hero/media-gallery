@@ -1,7 +1,7 @@
-import { useMediaStore } from '@/stores/media';
 import { Button } from './ui/button';
 import { NavLink } from 'react-router';
 import { FolderIcon, LogoIcon } from './icons';
+import { useMedia } from '@/hooks/useMedia';
 
 export type SidebarContentProps = {
   title: string;
@@ -18,7 +18,7 @@ export const SidebarContent = ({ title, children }: SidebarContentProps) => {
 };
 
 export const Sidebar = () => {
-  const folders = useMediaStore((state) => state.folders);
+  const { folders } = useMedia();
 
   return (
     <div className="w-[232px] py-4 pl-4 pr-2 flex flex-col gap-8">

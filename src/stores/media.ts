@@ -20,6 +20,7 @@ interface MediaStore {
   addFile: (folderId: string, file: MediaFile) => void;
   deleteFile: (folderId: string, fileId: string) => void;
   // renameFile: (fileId: string, newFilename: string) => void;
+  moveFiles: (fileIds: string[], folderId: string, targetFolderId: string) => void;
 }
 
 export const useMediaStore = create<MediaStore>()(
@@ -109,6 +110,24 @@ export const useMediaStore = create<MediaStore>()(
           },
         }));
       },
+      moveFiles: (fileIds, folderId, targetFolderId) => set((state) => {
+        const currentFolder = state.folders[folderId];
+        const targetFolder = state.folders[targetFolderId];
+
+        return {
+          folders: {
+            ...state.folders,
+            [folderId]: {
+              ...currentFolder,
+              fileIds: currentFolder.fileIds.filter((id) => !fileIds.includes(id)),
+            },
+            [targetFolderId]: {
+              ...targetFolder,
+              fileIds: [...targetFolder.fileIds, ...fileIds],
+            },
+          }
+        }
+      }),
     }),
     { name: 'media-storage' },
   ),

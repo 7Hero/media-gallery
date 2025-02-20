@@ -6,13 +6,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useMediaStore } from '@/stores/media';
+import { useMedia } from '@/hooks/useMedia';
+import { useSelection } from '@/hooks/useSelection';
+import { useNavigate, useParams } from 'react-router';
 
 export function SelectFolder() {
-  const folders = useMediaStore((state) => state.folders);
+  const { folderId } = useParams<{ folderId: string }>();
+
+  const navigate = useNavigate();
+
+  const { moveFiles, folders } = useMedia();
+  const { selectedIds, clearSelection } = useSelection();
+
+  const handleFolderChange = (targetFolderId: string) => {
+    moveFiles(Array.from(selectedIds), folderId!, targetFolderId);
+    clearSelection();
+    navigate(`/folder/${targetFolderId}`);
+  };
 
   return (
-    <Select>
+    <Select value={folderId} onValueChange={handleFolderChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
