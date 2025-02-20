@@ -4,19 +4,33 @@ import { mediaType } from '@/lib/constants';
 import { useSelection } from '@/hooks/useSelection';
 import { useMedia } from '@/hooks/useMedia';
 import { useState } from 'react';
+import { useDrag } from 'react-dnd';
 
 export type MediaFileProps = {
   file: MediaFile;
+  folderId: string;
 };
 
-export const Media = ({ file }: MediaFileProps) => {
+export const Media = ({ file, folderId }: MediaFileProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { toggleSelection, isSelected, getSelectionIndex } = useSelection();
   const { renameFile } = useMedia();
   const selected = isSelected(file.id);
 
+  const [{ opacity }, drag] = useDrag(() => ({
+    type: 'FILE',
+    item: { fileId: file.id, sourceFolderId: folderId },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.4 : 1,
+    }),
+  }));
+
   return (
-    <div className="flex flex-col group">
+    <div
+      className="flex flex-col group"
+      ref={drag as unknown as React.Ref<HTMLDivElement>}
+      style={{ opacity }}
+    >
       <div
         className={cn(
           'aspect-square flex items-center justify-center p-2 overflow-hidden relative group-hover:bg-black/20 rounded-[0.5rem]',

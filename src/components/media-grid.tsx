@@ -58,7 +58,7 @@ export const MediaGrid = () => {
       {/* Media Grid */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-2">
         {currentFolder.fileIds.map((fileId) => (
-          <Media key={fileId} file={files[fileId]} />
+          <Media key={fileId} file={files[fileId]} folderId={folderId!} />
         ))}
       </div>
     </main>
