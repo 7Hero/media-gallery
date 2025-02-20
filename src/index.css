@@ -4,6 +4,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('/public/fonts/SF-PRO-TEXT-REGULAR.OTF') format('otf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('/public/fonts/SF-PRO-TEXT-MEDIUM.OTF') format('otf');
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(0 0% 3.9%);
@@ -121,6 +135,8 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    @apply font-display;
+    font-family: 'SF Pro Text', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
@@ -140,7 +156,7 @@
 }
 
 @theme {
-  --font-display: 'Inter', 'sans-serif';
+  --font-display: "SF Pro Text", -apple-system, BlinkMacSystemFont, 'Times New Roman', 'sans-serif';
   --color-secondary-10: #E1E3E6;
   --color-secondary-20: #C9CDD1;
   --color-secondary-50: #9FA4AB;

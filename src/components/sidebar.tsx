@@ -1,13 +1,8 @@
-import { Button } from './ui/button';
-import { NavLink } from 'react-router';
-import { FolderIcon, LogoIcon } from './icons';
+import { LogoIcon } from './icons';
 import { useMedia } from '@/hooks/useMedia';
-import { useSelection } from '@/hooks/useSelection';
-import { useDrop } from 'react-dnd';
-import { cn } from '@/lib/utils';
-import { Folder } from '@/stores/media';
 import { MediaTypeFilter } from './filters/mediatype';
 import { SearchFilter } from './filters/search';
+import { FolderItem } from './folder-item';
 
 export type SidebarContentProps = {
   title: string;
@@ -20,44 +15,6 @@ export const SidebarContent = ({ title, children }: SidebarContentProps) => {
       <p className="text-sm font-medium px-2">{title}</p>
       {children}
     </div>
-  );
-};
-
-type FolderItemProps = {
-  folder: Folder;
-};
-
-const FolderItem = ({ folder }: FolderItemProps) => {
-  const { clearSelection } = useSelection();
-  const { moveFiles } = useMedia();
-
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'FILE',
-    drop: (item: { fileId: string; sourceFolderId: string }) => {
-      if (item.sourceFolderId === folder.id) return;
-      moveFiles([item.fileId], item.sourceFolderId, folder.id);
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  }));
-
-  return (
-    <Button
-      ref={drop as unknown as React.Ref<HTMLButtonElement>}
-      variant="ghost"
-      className={cn('transition-colors text-secondary-100', {
-        'bg-primary-100/10': isOver,
-      })}
-      asChild
-      onClick={clearSelection}
-    >
-      <NavLink to={`folder/${folder.id}`}>
-        <FolderIcon />
-        {folder.name}
-        <span className="text-secondary-50">{folder.fileIds.length}</span>
-      </NavLink>
-    </Button>
   );
 };
 

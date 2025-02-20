@@ -3,9 +3,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MediaGrid } from './components/media-grid.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { DefaultRoute } from './components/default-route.tsx';
 
 import './index.css';
-import { DefaultRoute } from './components/default-route.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

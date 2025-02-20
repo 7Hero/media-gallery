@@ -1,25 +1,22 @@
 import { useMediaStore } from '@/stores/media';
 import { useParams } from 'react-router';
-import { Selected } from './selected';
 import { Divider } from './divider';
 import { Media } from './media';
 import { useEffect, useMemo } from 'react';
-import { SelectFolder } from './select-folder';
 import { useShallow } from 'zustand/react/shallow';
 import { useSelection } from '@/hooks/useSelection';
-import { Button } from './ui/button';
 import { filterDefinitions, useFiltersStore } from '@/stores/filters';
 import { EmptyState } from './empty-grid';
+import { Toolbar } from './toolbar';
 
 export const MediaGrid = () => {
   const { folderId } = useParams<{ folderId: string }>();
-  const { clearSelection, selectedIds } = useSelection();
+  const { clearSelection } = useSelection();
 
-  const { currentFolder, files, deleteFiles } = useMediaStore(
+  const { currentFolder, files } = useMediaStore(
     useShallow((state) => ({
       currentFolder: state.folders[folderId!],
       files: state.files,
-      deleteFiles: state.deleteFiles,
     })),
   );
 
@@ -41,11 +38,6 @@ export const MediaGrid = () => {
     return results;
   }, [currentFolder.fileIds, filters, files]);
 
-  const handleFilesDelete = () => {
-    deleteFiles(folderId!, Array.from(selectedIds));
-    clearSelection();
-  };
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -60,22 +52,8 @@ export const MediaGrid = () => {
 
   return (
     <main className="flex-1 flex flex-col">
-      {/* Top Bar */}
-      <div className="py-4 px-2 flex gap-6">
-        <div className="flex gap-2 items-center py-[6px]">
-          <Selected isActive={selectedIds.size > 0} />
-          <p className="text-secondary-60">{selectedIds.size} selected</p>
-        </div>
-        {selectedIds.size > 0 && <SelectFolder />}
-        <div className="flex-1" />
-        {selectedIds.size > 0 && (
-          <Button variant="destructive" onClick={handleFilesDelete}>
-            Delete files
-          </Button>
-        )}
-      </div>
+      <Toolbar />
       <Divider className="mx-2" />
-      {/* Media Grid */}
       {filteredFiles.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-2">
           {filteredFiles.map((fileId) => (
@@ -83,7 +61,6 @@ export const MediaGrid = () => {
           ))}
         </div>
       )}
-
       {filteredFiles.length === 0 && <EmptyState />}
     </main>
   );

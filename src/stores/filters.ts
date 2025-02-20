@@ -1,21 +1,5 @@
 import { create } from "zustand";
-import { MediaFile, MediaType } from "./media";
-
-type MediaTypeFilterState = {
-  video: boolean;
-  image: boolean;
-  gif: boolean;
-}
-
-type Filter<T> = {
-  defaultState: T;
-  label: string;
-  options?: {
-    value: MediaType;
-    label: string;
-  }[];
-  filterFn: (item: MediaFile, filterState: T) => boolean
-}
+import { Filter, MediaType, MediaTypeFilterState } from "@/types";
 
 export const filterDefinitions = {
   mediaTypes: {

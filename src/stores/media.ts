@@ -1,21 +1,7 @@
 import { generateUniqueFilename } from '@/lib/utils';
+import { Folder, MediaFile } from '@/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export type MediaType = 'video' | 'image' | 'gif';
-
-export interface MediaFile {
-  id: string;
-  filename: string;
-  fileUrl: string;
-  type: MediaType;
-}
-
-export interface Folder {
-  id: string;
-  name: string;
-  fileIds: string[];
-}
 
 interface MediaStore {
   folders: { [key: string]: Folder };
