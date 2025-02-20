@@ -5,9 +5,10 @@ import { Media } from './media';
 import { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useSelection } from '@/hooks/useSelection';
-import { filterDefinitions, useFiltersStore } from '@/stores/filters';
+import { useFiltersStore } from '@/stores/filters';
 import { EmptyState } from './empty-grid';
 import { Toolbar } from './toolbar';
+import { filterDefinitions } from '@/lib/constants';
 
 export const MediaGrid = () => {
   const { folderId } = useParams<{ folderId: string }>();
@@ -25,12 +26,10 @@ export const MediaGrid = () => {
   const filteredFiles = useMemo(() => {
     let results = [...currentFolder.fileIds];
 
-    // Media filter
     results = results.filter((item) =>
       filterDefinitions.mediaTypes.filterFn(files[item], filters.mediaTypes),
     );
 
-    // Search filter
     results = results.filter((item) =>
       filterDefinitions.search.filterFn(files[item], filters.search),
     );

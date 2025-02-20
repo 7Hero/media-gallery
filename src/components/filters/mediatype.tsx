@@ -1,6 +1,6 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { mediaTypeFilter } from '@/lib/constants';
-import { useFiltersStore, filterDefinitions } from '@/stores/filters';
+import { filterDefinitions, mediaTypeFilter } from '@/lib/constants';
+import { useFiltersStore } from '@/stores/filters';
 import { SidebarFilter } from './filter';
 import { useMedia } from '@/hooks/useMedia';
 import { useParams } from 'react-router';

@@ -1,40 +1,6 @@
 import { create } from "zustand";
-import { Filter, MediaType, MediaTypeFilterState } from "@/types";
-
-export const filterDefinitions = {
-  mediaTypes: {
-    defaultState: {
-      video: true,
-      image: true,
-      gif: true,
-    },
-    label: 'Media type',
-    options: [
-      {
-        value: 'video',
-        label: 'Videos',
-      },
-      {
-        value: 'image',
-        label: 'Images',
-      },
-      {
-        value: 'gif',
-        label: 'GIFs',
-      },
-    ],
-    filterFn: (item, filterState) => filterState[item.type]
-  } as Filter<MediaTypeFilterState>,
-  search: {
-    defaultState: '',
-    label: 'Search',
-    filterFn: (item, searchTerm) => {
-      if (!searchTerm) return true;
-      const term = searchTerm.toLowerCase();
-      return item.filename.toLowerCase().includes(term);
-    }
-  } as Filter<string>,
-}
+import { MediaType } from "@/types";
+import { filterDefinitions } from "@/lib/constants";
 
 export interface Filters {
   filters: {
