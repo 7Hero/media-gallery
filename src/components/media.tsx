@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
 import { MediaFile } from '@/stores/media';
-import { useSelection } from '@/hooks/useSelection';
 import { mediaType } from '@/lib/constants';
+import { useSelection } from '@/hooks/useSelection';
+import { useMemo } from 'react';
 
 export type MediaFileProps = {
   file: MediaFile;
@@ -10,6 +11,8 @@ export type MediaFileProps = {
 export const Media = ({ file }: MediaFileProps) => {
   const { toggleSelection, isSelected, getSelectionIndex } = useSelection();
 
+  const selected = useMemo(() => isSelected(file.id), [file.id, isSelected]);
+
   return (
     <div className="flex flex-col group">
       <div
@@ -17,7 +20,7 @@ export const Media = ({ file }: MediaFileProps) => {
           'aspect-square flex items-center justify-center p-2 overflow-hidden relative group-hover:bg-black/20 rounded-[0.5rem]',
           {
             'group-hover:bg-primary-100/10 bg-primary-100/10 outline-1 outline-primary-100 -outline-offset-1':
-              isSelected,
+              selected,
           },
         )}
       >
@@ -27,7 +30,7 @@ export const Media = ({ file }: MediaFileProps) => {
         <button
           className={cn(
             'cursor-pointer h-5 w-5 absolute bottom-1 left-1 group-hover:flex hidden z-10 rounded-sm -outline-offset-[1.5px] outline-white outline-[1.5px] hover:outline-white/20 text-[10px] text-white justify-center items-center',
-            { 'block bg-primary-100 outline-primary-100': isSelected },
+            { 'block bg-primary-100 outline-primary-100': selected },
           )}
           onClick={() => toggleSelection(file.id)}
         >

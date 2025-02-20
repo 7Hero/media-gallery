@@ -6,7 +6,6 @@ export const useMedia = () => {
     useShallow((state) => ({
       folders: state.folders,
       files: state.files,
-      currentFolder: (folderId: string) => state.folders[folderId],
       addFiles: state.addFile,
       moveFiles: state.moveFiles,
       deleteFiles: state.deleteFile,
