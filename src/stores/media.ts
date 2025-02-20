@@ -29,7 +29,7 @@ export const useMediaStore = create<MediaStore>()(
         'your-folder': {
           id: 'your-folder',
           name: 'Your folder',
-          fileIds: ['file-1', 'file-2', 'file-3', 'file-4', 'file-5'],
+          fileIds: ['file-1', 'file-2', 'file-3', 'file-4', 'file-5', 'file-6'],
         },
         'new-folder2': {
           id: 'new-folder2',
@@ -41,31 +41,37 @@ export const useMediaStore = create<MediaStore>()(
         'file-1': {
           id: 'file-1',
           filename: 'file-1.png',
-          fileUrl: 'https://picsum.photos/200/300',
+          fileUrl: 'https://picsum.photos/600/900',
           type: 'image',
         },
         'file-2': {
           id: 'file-2',
           filename: 'file-2.png',
-          fileUrl: 'https://picsum.photos/200/300',
+          fileUrl: 'https://picsum.photos/900/600',
           type: 'image',
         },
         'file-3': {
           id: 'file-3',
           filename: 'file-3.png',
-          fileUrl: 'https://picsum.photos/200/300',
+          fileUrl: 'https://picsum.photos/600',
           type: 'image',
         },
         'file-4': {
           id: 'file-4',
           filename: 'file-4.png',
-          fileUrl: 'https://picsum.photos/200/300',
+          fileUrl: 'https://picsum.photos/600/900',
           type: 'image',
         },
         'file-5': {
           id: 'file-5',
           filename: 'file-5.png',
-          fileUrl: 'https://picsum.photos/200/300',
+          fileUrl: 'https://picsum.photos/600/900',
+          type: 'image',
+        },
+        'file-6': {
+          id: 'file-6',
+          filename: 'file-6.png',
+          fileUrl: 'https://picsum.photos/600/900',
           type: 'image',
         },
       },
