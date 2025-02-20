@@ -1,8 +1,7 @@
-import { Logo } from './icons/logo';
 import { useMediaStore } from '@/stores/media';
 import { Button } from './ui/button';
-import { Folder } from './icons/folder';
 import { NavLink } from 'react-router';
+import { FolderIcon, LogoIcon } from './icons';
 
 export type SidebarContentProps = {
   title: string;
@@ -24,17 +23,22 @@ export const Sidebar = () => {
   return (
     <div className="w-[232px] py-4 pl-4 pr-2 flex flex-col gap-8">
       <div className="flex items-center gap-2">
-        <Logo />
+        <LogoIcon />
         Media gallery
       </div>
       <SidebarContent title="Folders">
-        <div className='gap-1 flex flex-col'>
+        <div className="gap-1 flex flex-col">
           {Object.values(folders).map((folder) => (
-            <Button variant="ghost" key={folder.id} className='text-secondary-100' asChild>
+            <Button
+              variant="ghost"
+              key={folder.id}
+              className="text-secondary-100"
+              asChild
+            >
               <NavLink to={`folder/${folder.id}`}>
-                <Folder />
+                <FolderIcon />
                 {folder.name}
-                <span className='text-secondary-50'>
+                <span className="text-secondary-50">
                   {folder.fileIds.length}
                 </span>
               </NavLink>

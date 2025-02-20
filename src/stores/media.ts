@@ -5,7 +5,7 @@ export interface MediaFile {
   id: string;
   filename: string;
   fileUrl: string;
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'gif';
 }
 
 export interface Folder {
@@ -40,9 +40,9 @@ export const useMediaStore = create<MediaStore>()(
       files: {
         'file-1': {
           id: 'file-1',
-          filename: 'file-1.png',
+          filename: 'file-1.mp4',
           fileUrl: 'https://picsum.photos/600/900',
-          type: 'image',
+          type: 'video',
         },
         'file-2': {
           id: 'file-2',
@@ -64,9 +64,9 @@ export const useMediaStore = create<MediaStore>()(
         },
         'file-5': {
           id: 'file-5',
-          filename: 'file-5.png',
+          filename: 'file-5.gif',
           fileUrl: 'https://picsum.photos/1920/1080',
-          type: 'image',
+          type: 'gif',
         },
         'file-6': {
           id: 'file-6',
