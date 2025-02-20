@@ -59,19 +59,19 @@ export const useMediaStore = create<MediaStore>()(
         'file-4': {
           id: 'file-4',
           filename: 'file-4.png',
-          fileUrl: 'https://picsum.photos/600/900',
+          fileUrl: 'https://picsum.photos/600/100',
           type: 'image',
         },
         'file-5': {
           id: 'file-5',
           filename: 'file-5.png',
-          fileUrl: 'https://picsum.photos/600/900',
+          fileUrl: 'https://picsum.photos/1920/1080',
           type: 'image',
         },
         'file-6': {
           id: 'file-6',
           filename: 'file-6.png',
-          fileUrl: 'https://picsum.photos/600/900',
+          fileUrl: 'https://picsum.photos/400/800',
           type: 'image',
         },
       },
